@@ -1,6 +1,11 @@
-import { sql } from "../configs/db";
+import { sql } from "@/configs/db";
+
+let warmed = false;
 
 export async function wakeDb() {
-  await sql`SELECT 1`;
-  console.log("Neon DB awakened");
+    if (warmed) return;
+    warmed = true;
+    
+    await sql`SELECT 1`;
+    console.log("DB jaag gya ");
 }
