@@ -10,11 +10,6 @@ export default function Home() {
 
   wakeDb();
 
-  /*
-  landing-screen
-  testing with test branch
-  */
-
   return (
     <div>
       <header className="flex  flex-wrap sm:justify-start  sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-neutral-800 dark:border-neutral-700">
