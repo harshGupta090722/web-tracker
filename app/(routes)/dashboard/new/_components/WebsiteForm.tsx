@@ -23,7 +23,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation";
 
 function WebsiteForm() {
 
@@ -31,6 +31,7 @@ function WebsiteForm() {
     const [timeZone, setTimeZone] = useState('');
     const [enableLocalhostTracking, setEnableLocalhostTracking] = useState(false);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const onFormSubmit = async (e: any) => {
         e.preventDefault();
@@ -48,6 +49,15 @@ function WebsiteForm() {
 
         console.log("request executed")
         console.log(result.data);
+
+        if (result.data.data) {
+            router.push('/dashboard/new?step=script&websiteId=' + result?.data?.data?.websiteId + '&domain=' + result?.data?.data?.domain);
+        } else if (!result?.data?.message) {
+            router.push('/dashboard/new?step=script&websiteId=' + websiteId + '&domain=' + domain);
+        } else {
+            alert(result?.data?.message);
+        }
+
         setLoading(false);
     }
     return (
