@@ -4,12 +4,12 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
-import { WebsiteType } from '@/configs/type';
+import { WebsiteInfoType, WebsiteType } from '@/configs/type';
 import WebsiteCard from './_components/WebsiteCard';
 import { Skeleton } from '@/components/ui/skeleton';
 
 function Dashboard() {
-  const [websiteList, setWebsiteList] = useState<WebsiteType[]>([]);
+  const [websiteList, setWebsiteList] = useState<WebsiteInfoType[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function Dashboard() {
     setLoading(true);
     const result = await axios.get('/api/website');
     setWebsiteList(result?.data);
-    console.log("I am inside (routes)>dashboard>",result.data);
+    console.log("I am inside (routes)>dashboard>", result.data);
     setLoading(false);
   }
 
@@ -59,7 +59,7 @@ function Dashboard() {
           <div className='grid grid-cols-1 md:grid-cols-2 gap-5 xl:grid-cols-3 mt-5'>
             {/*Website List*/}
             {websiteList?.map((website, index) => {
-              return <WebsiteCard key={index} website={website} />
+              return <WebsiteCard key={index} websiteInfo={website} />
             })}
           </div>
         }

@@ -18,7 +18,7 @@
     const domain = script.getAttribute('data-domain');
 
     //Get Entry Time
-    const entryTime = Date.now();
+    const entryTime = Math.floor(Date.now() / 1000);
 
 
     //Get Regerrer
@@ -65,8 +65,8 @@
     let totalActiveTime = 0;
 
     const handleExit = () => {
-        const exitTime = Date.now();
-        totalActiveTime += Date.now() - activeStartTime;
+        const exitTime = Math.floor(Date.now() / 1000);
+        totalActiveTime += Math.floor(Date.now() / 1000) - activeStartTime;
 
         fetch('http://localhost:3000/api/track', {
             method: 'POST',
