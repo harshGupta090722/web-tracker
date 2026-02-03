@@ -28,7 +28,7 @@ function WebsiteCard({ websiteInfo }: Props) {
                 count: 0,
                 hourLabel: `${Number(hourlyData[0].hour) - 1} AM/PM `
             },
-        hourlyData[0]
+            hourlyData[0]
         ] : hourlyData;
 
 
@@ -50,8 +50,8 @@ function WebsiteCard({ websiteInfo }: Props) {
                             accessibilityLayer
                             data={chartData}
                             margin={{
-                                left: 12,
-                                right: 12,
+                                left: 16,
+                                right: 16,
                             }}
                         >
                             <CartesianGrid vertical={true} />
@@ -65,7 +65,7 @@ function WebsiteCard({ websiteInfo }: Props) {
                             />
                         </AreaChart>
                     </ChartContainer>
-                    <h2 className='text-sm mt-1'><strong>{websiteInfo?.analytics?.last24hVisitors} Visitors</strong></h2>
+                    <h2 className='text-sm mt-1'><strong>{websiteInfo?.analytics?.totalVisitors} Visitors</strong></h2>
                 </CardContent>
             </Card>
         </div >
