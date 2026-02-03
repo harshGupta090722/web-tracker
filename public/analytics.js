@@ -5,11 +5,28 @@
         return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
     }
 
+    const sessionDuration = 12 * 60 * 60 * 1000; // 1
+    // 2 hours in milliseconds
+    const now = Date.now();
+
     let visitorId = localStorage.getItem('webTrack_visitor_id');
-    if (!visitorId) {
+    let sessionTime = localStorage.getItem('webtrack_session_time');
+
+    if (!visitorId || (now - sessionTime) > sessionDuration) {
+
+        if (visitorId) {
+            localStorage.removeItem('webTrack_visitor_id');
+            localStorage.removeItem('webtrack_session_time');
+        }
+
+
         visitorId = generateUUID();
         localStorage.setItem('webtrack_visitor_id', visitorId);
+        localStorage.setItem('webtrack_session_time', now);
+    } else {
+        console.log("Existing Session");
     }
+
     const script = document.currentScript;
 
 
@@ -80,10 +97,11 @@
                 domain,
                 exitTime: exitTime,
                 totalActiveTime: totalActiveTime,
-                visitorId: visitorId
+                visitorId: visitorId,
+                exitUrl: window.location.href,
             })
         })
-        localStorage.clear();
+        // localStorage.clear();
     }
 
 

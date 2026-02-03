@@ -7,6 +7,7 @@ import axios from 'axios';
 import { WebsiteInfoType, WebsiteType } from '@/configs/type';
 import WebsiteCard from './_components/WebsiteCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import { format } from 'date-fns-tz';
 
 function Dashboard() {
   const [websiteList, setWebsiteList] = useState<WebsiteInfoType[]>([]);
@@ -19,7 +20,8 @@ function Dashboard() {
 
   const GetUserWebsites = async () => {
     setLoading(true);
-    const result = await axios.get('/api/website');
+    const today = format(new Date(), 'yyy-MM-dd');
+    const result = await axios.get('/api/website?from=' + today + '&to=' + today);
     setWebsiteList(result?.data);
     console.log("I am inside (routes)>dashboard>", result.data);
     setLoading(false);
