@@ -39,7 +39,8 @@ function WebsiteForm() {
         setLoading(true);
 
         const websiteId = crypto.randomUUID();
-        console.log("request sent")
+        console.log("website Id", websiteId);
+
         const result = await axios.post('/api/website', {
             websiteId: websiteId,
             domain: domain,
@@ -47,19 +48,22 @@ function WebsiteForm() {
             enableLocalhostTracking: enableLocalhostTracking
         })
 
-        console.log("request executed")
         console.log(result.data);
 
         if (result.data.data) {
+            console.log("we have received message+data from api");
             router.push('/dashboard/new?step=script&websiteId=' + result?.data?.data?.websiteId + '&domain=' + result?.data?.data?.domain);
         } else if (!result?.data?.message) {
+            console.log("we have received data from api");
             router.push('/dashboard/new?step=script&websiteId=' + websiteId + '&domain=' + domain);
         } else {
+            console.log("This particular domain doesn't belongs to you !");
             alert(result?.data?.message);
         }
 
         setLoading(false);
     }
+
     return (
         <div>
             <Card>

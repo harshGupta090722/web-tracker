@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
             eq(websitesTable?.userEmail, user?.primaryEmailAddress?.emailAddress as string)));
 
     if (existingDomain.length > 0) {
-        return NextResponse.json({ message: 'Domain already exists', data: existingDomain[0] })
+        return NextResponse.json({ message: 'Domain already exists', data: existingDomain[0] },{status:209})
     }
 
     const result = await db.insert(websitesTable).values({
@@ -33,8 +33,6 @@ export async function GET(req: NextRequest) {
     const result = await db.select().from(websitesTable)
         .where(eq(websitesTable.userEmail, user?.primaryEmailAddress?.emailAddress as string))
         .orderBy(desc(websitesTable.id));
-
-    /*await new Promise(resolve => setTimeout(resolve, 1000));--delay by 10s*/
 
     return NextResponse.json(result);
 }
