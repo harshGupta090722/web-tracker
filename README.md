@@ -46,3 +46,6 @@ push any changes in schema
 
 npx drizzle-kit studio
 run the studio
+
+
+complete workflow= https://app.eraser.io/workspace/rZpqG4eH2FUObeXpCkZX

@@ -21,7 +21,7 @@ function Dashboard() {
     setLoading(true);
     const result = await axios.get('/api/website');
     setWebsiteList(result?.data);
-    console.log(result.data);
+    console.log("I am inside (routes)>dashboard>",result.data);
     setLoading(false);
   }
 
