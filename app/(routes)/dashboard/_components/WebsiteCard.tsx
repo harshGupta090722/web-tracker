@@ -1,19 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
-import { WebsiteType } from '@/configs/type'
+import { WebsiteInfoType, WebsiteType } from '@/configs/type'
 import { Globe } from 'lucide-react'
 import React from 'react'
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-
-
-const chartData = [
-    { month: "January", desktop: 186 },
-    { month: "February", desktop: 305 },
-    { month: "March", desktop: 237 },
-    { month: "April", desktop: 73 },
-    { month: "May", desktop: 209 },
-    { month: "June", desktop: 214 },
-]
 
 const chartConfig = {
     desktop: {
@@ -23,10 +13,26 @@ const chartConfig = {
 } satisfies ChartConfig
 
 type Props = {
-    website: WebsiteType
+    websiteInfo: WebsiteInfoType
 }
 
-function WebsiteCard({ website }: Props) {
+function WebsiteCard({ websiteInfo }: Props) {
+
+    const hourlyData = websiteInfo?.analytics?.hourlyVisitors;
+
+    const chartData = hourlyData?.length == 1 ?
+        [
+            {
+                ...hourlyData[0],
+                hour: Number(hourlyData[0].hour) - 1 >= 0 ? Number(hourlyData[0].hour) - 1 : 0,
+                count: 0,
+                hourLabel: `${Number(hourlyData[0].hour) - 1} AM/PM `
+            },
+        hourlyData[0]
+        ] : hourlyData;
+
+
+
     return (
         <div>
             <Card>
@@ -34,7 +40,7 @@ function WebsiteCard({ website }: Props) {
                     <CardTitle>
                         <div className='flex gap-2 items-center'>
                             <Globe className='h-8 w-8 p-2 rounded-md bg-primary'></Globe>
-                            <h2 className='font-bold text-lg'>{website?.domain.replace('https://', ' ')}</h2>
+                            <h2 className='font-bold text-lg'>{websiteInfo?.website?.domain.replace('https://', ' ')}</h2>
                         </div>
                     </CardTitle>
                 </CardHeader>
@@ -50,7 +56,7 @@ function WebsiteCard({ website }: Props) {
                         >
                             <CartesianGrid vertical={true} />
                             <Area
-                                dataKey="desktop"
+                                dataKey="count"
                                 type="natural"
                                 fill="var(--color-desktop)"
                                 fillOpacity={0.0}
@@ -59,7 +65,7 @@ function WebsiteCard({ website }: Props) {
                             />
                         </AreaChart>
                     </ChartContainer>
-                    <h2 className='text-sm mt-1'><strong>24 Visitors</strong></h2>
+                    <h2 className='text-sm mt-1'><strong>{websiteInfo?.analytics?.last24hVisitors} Visitors</strong></h2>
                 </CardContent>
             </Card>
         </div >
