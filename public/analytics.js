@@ -10,19 +10,19 @@
     const now = Date.now();
 
     let visitorId = localStorage.getItem('webTrack_visitor_id');
-    let sessionTime = localStorage.getItem('webtrack_session_time');
+    let sessionTime = localStorage.getItem('webTrack_session_time');
 
     if (!visitorId || (now - sessionTime) > sessionDuration) {
 
         if (visitorId) {
             localStorage.removeItem('webTrack_visitor_id');
-            localStorage.removeItem('webtrack_session_time');
+            localStorage.removeItem('webTrack_session_time');
         }
 
 
         visitorId = generateUUID();
-        localStorage.setItem('webtrack_visitor_id', visitorId);
-        localStorage.setItem('webtrack_session_time', now);
+        localStorage.setItem('webTrack_visitor_id', visitorId);
+        localStorage.setItem('webTrack_session_time', now);
     } else {
         console.log("Existing Session");
     }
@@ -83,7 +83,7 @@
 
     const handleExit = () => {
         const exitTime = Math.floor(Date.now() / 1000);
-        totalActiveTime += Math.floor(Date.now() / 1000) - activeStartTime;
+        totalActiveTime += Math.floor((Date.now() - activeStartTime) / 1000);
 
         fetch('http://localhost:3000/api/track', {
             method: 'POST',

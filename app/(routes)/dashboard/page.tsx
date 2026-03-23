@@ -20,7 +20,7 @@ function Dashboard() {
 
   const GetUserWebsites = async () => {
     setLoading(true);
-    const today = format(new Date(), 'yyy-MM-dd');
+    const today = format(new Date(), 'yyyy-MM-dd');
     const result = await axios.get('/api/website?from=' + today + '&to=' + today);
     setWebsiteList(result?.data);
     console.log("I am inside (routes)>dashboard>", result.data);
