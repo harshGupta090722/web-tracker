@@ -84,7 +84,7 @@ export async function GET(req: NextRequest) {
                     and(
                         eq(
                             websitesTable.userEmail,
-                            user.primaryEmailAddress!.emailAddress
+                            user?.primaryEmailAddress?.emailAddress as string
                         ),
                         eq(websitesTable.websiteId, websiteId)
                     )

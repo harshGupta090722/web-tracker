@@ -32,6 +32,11 @@ export async function POST(req: NextRequest) {
 
   let result;
 
+  let safeTotalActiveTime = Number(body.totalActiveTime) || 0;
+  if (safeTotalActiveTime < 0 || safeTotalActiveTime > 2147483647) {
+    safeTotalActiveTime = 0;
+  }
+
   if (body.type == 'entry') {
     result = await db.insert(pageViewTable).values({
       visitorId: body.visitorId,
@@ -42,7 +47,7 @@ export async function POST(req: NextRequest) {
       referrer: body.referrer,
       entryTime: body.entryTime,
       exitTime: body.exitTime,
-      totalActiveTime: body.totalActiveTime,
+      totalActiveTime: safeTotalActiveTime,
       urlParams: body.urlParams,
       utm_source: body.utm_source,
       utm_medium: body.utm_medium,
@@ -60,7 +65,7 @@ export async function POST(req: NextRequest) {
   } else {
     result = await db.update(pageViewTable).set({
       exitTime: body.exitTime,
-      totalActiveTime: body.totalActiveTime,
+      totalActiveTime: safeTotalActiveTime,
       exitUrl: body.exitUrl,
     }).where(eq(pageViewTable.visitorId, body.visitorId)).returning();
   }
