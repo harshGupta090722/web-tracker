@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import FormInput from "./_components/FormInput";
 import PageViewAnalytics from "./_components/PageViewAnalytics";
 import { format } from "date-fns";
+import SourceWidget from "./_components/SourceWidget";
+import LocationWidget from "./_components/LocationWidget";
+import DeviceWidget from "./_components/DeviceWidget";
 
 function WebsiteDetail() {
 
@@ -54,6 +57,15 @@ function WebsiteDetail() {
     <div className="mt-10">
       <FormInput websiteList={websiteList} setFormData={setFormData} setReloadData={() => GetWebsiteAnalyticDetail()} />
       <PageViewAnalytics websiteInfo={websiteInfo} loading={loading} analyticType={formData?.analyticType} />
+
+
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-5 mt-5'>
+        <SourceWidget websiteAnalytics={websiteInfo?.analytics} loading={loading} />
+
+        <LocationWidget websiteAnalytics={websiteInfo?.analytics} loading={loading} />
+
+        <DeviceWidget websiteAnalytics={websiteInfo?.analytics} loading={loading} />
+      </div>
     </div>
   );
 }
