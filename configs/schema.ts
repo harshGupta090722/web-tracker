@@ -1,4 +1,4 @@
-import { Domain } from "domain";
+
 import { boolean, integer, pgTable, uniqueIndex, varchar } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {

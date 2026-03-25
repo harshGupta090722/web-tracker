@@ -5,8 +5,9 @@ import { ArrowLeft } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import WebsiteForm from './_components/WebsiteForm'
 import ScriptForm from './_components/ScriptForm'
+import { Suspense } from 'react'
 
-function AddWebsite() {
+function AddWebsiteContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -40,4 +41,10 @@ function AddWebsite() {
     )
 }
 
-export default AddWebsite;
+export default function AddWebsite() {
+    return (
+        <Suspense fallback={null}>
+            <AddWebsiteContent />
+        </Suspense>
+    );
+}

@@ -35,7 +35,7 @@ function WebsiteDetail() {
     setWebsiteList(websites?.data);
   }
 
-  console.log("WebsiteId:", websiteId);
+  //console.log("WebsiteId:", websiteId);
 
 
   const GetWebsiteAnalyticDetail = async () => {

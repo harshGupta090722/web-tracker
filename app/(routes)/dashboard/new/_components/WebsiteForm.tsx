@@ -35,11 +35,11 @@ function WebsiteForm() {
 
     const onFormSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(domain, timeZone, enableLocalhostTracking);
+        //console.log(domain, timeZone, enableLocalhostTracking);
         setLoading(true);
 
         const websiteId = crypto.randomUUID();
-        console.log("website Id", websiteId);
+        //console.log("website Id", websiteId);
 
         const result = await axios.post('/api/website', {
             websiteId: websiteId,
@@ -48,16 +48,16 @@ function WebsiteForm() {
             enableLocalhostTracking: enableLocalhostTracking
         })
 
-        console.log(result.data);
+        //console.log(result.data);
 
         if (result.data.data) {
-            console.log("we have received message+data from api");
+            //console.log("we have received message+data from api");
             router.push('/dashboard/new?step=script&websiteId=' + result?.data?.data?.websiteId + '&domain=' + result?.data?.data?.domain);
         } else if (!result?.data?.message) {
-            console.log("we have received data from api");
+            //console.log("we have received data from api");
             router.push('/dashboard/new?step=script&websiteId=' + websiteId + '&domain=' + domain);
         } else {
-            console.log("This particular domain doesn't belongs to you !");
+           // console.log("This particular domain doesn't belongs to you !");
             alert(result?.data?.message);
         }
 

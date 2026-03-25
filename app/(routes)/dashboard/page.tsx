@@ -23,7 +23,7 @@ function Dashboard() {
     const today = format(new Date(), 'yyyy-MM-dd');
     const result = await axios.get('/api/website?from=' + today + '&to=' + today);
     setWebsiteList(result?.data);
-    console.log("I am inside (routes)>dashboard>", result.data);
+    //console.log("I am inside (routes)>dashboard>", result.data);
     setLoading(false);
   }
 
