@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card'
-import { AnalyticsType, IMAGE_URL_FOR_DOMAINS } from '@/configs/type'
+import { AnalyticsType } from '@/configs/type'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from 'react'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';

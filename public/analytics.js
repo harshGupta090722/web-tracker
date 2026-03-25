@@ -1,5 +1,5 @@
 (function () {
-    console.log("Analytics script loaded !");
+    //console.log("Analytics script loaded !");
 
     function generateUUID() {
         return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
@@ -24,7 +24,7 @@
         localStorage.setItem('webTrack_visitor_id', visitorId);
         localStorage.setItem('webTrack_session_time', now);
     } else {
-        console.log("Existing Session");
+       // console.log("Existing Session");
     }
 
     const script = document.currentScript;

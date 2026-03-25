@@ -2,7 +2,7 @@ export type WebsiteType = {
     id: number;
     websiteId: string;
     domain: string;
-    timeZome: string;
+    timeZone: string;
     enableLocalhostTracking: boolean;
     userEmail: string;
 }
@@ -92,7 +92,7 @@ export type DailyVisitorsType = {
 
 export type LiveUserType = {
     visitorId: string,
-    wesbiteId: string,
+    websiteId: string,
 }
 
 

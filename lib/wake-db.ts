@@ -7,5 +7,5 @@ export async function wakeDb() {
     warmed = true;
     
     await sql`SELECT 1`;
-    console.log("DB jaag gya ");
+   // console.log("DB jaag gya ");
 }
