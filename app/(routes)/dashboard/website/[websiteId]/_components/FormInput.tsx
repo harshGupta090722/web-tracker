@@ -21,6 +21,7 @@ import {
 import { format } from 'date-fns';
 import { CalendarIcon, ChevronDownIcon, RefreshCcw, Settings } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
+import Link from 'next/link';
 
 
 type Props = {
@@ -140,9 +141,13 @@ function FormInput({ websiteList, setFormData, setReloadData }: Props) {
                     </SelectContent>
                 </Select>
 
-                <Button variant="outline" onClick={()=>setReloadData(true)}><RefreshCcw /></Button>
+                <Button variant="outline" onClick={() => setReloadData(true)}><RefreshCcw /></Button>
             </div>
-            <Button variant="outline"><Settings /></Button>
+            
+            <Link href={'/dashboard/website/' + websiteId + '/settings'}>
+                <Button variant="outline"><Settings /></Button>
+            </Link>
+            
         </div >
     )
 }
