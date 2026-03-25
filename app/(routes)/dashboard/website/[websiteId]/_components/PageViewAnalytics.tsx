@@ -11,7 +11,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 type Props = {
     websiteInfo: WebsiteInfoType | null | undefined;
     loading?: boolean,
-    analyticType: string
+    analyticType: string,
+    liveUserCount: number
 }
 
 const chartConfig = {
@@ -22,7 +23,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 
-function PageViewAnalytics({ websiteInfo, loading, analyticType }: Props) {
+function PageViewAnalytics({ websiteInfo, loading, analyticType, liveUserCount }: Props) {
     const webAnalytics = websiteInfo?.analytics;
     return (
         <div className='mt-7 max-w-4xl'>
@@ -41,7 +42,7 @@ function PageViewAnalytics({ websiteInfo, loading, analyticType }: Props) {
                     <LabelCountItem label="Avg Active Time" value={(Number(webAnalytics?.avgActiveTime) / 60).toFixed(2) + " m"} />
                     <Separator orientation="vertical" className='h-16' />
 
-                    <LabelCountItem label="Live Users" value={5} />
+                    <LabelCountItem label="Live Users" value={liveUserCount ?? 0} />
                 </CardContent>
 
                 <CardContent className='p-5 mt-5'>

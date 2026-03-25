@@ -24,12 +24,28 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-const BarLabel = ({ x, y, width, height, value, index, data }: any) => {
-  const image = data?.[index]?.image;
+import { Monitor, Smartphone, Tablet, Globe, Airplay, AppWindow } from 'lucide-react';
+
+const BarLabel = ({ x, y, width, height, value }: any) => {
+  const v = value?.toLowerCase() || '';
+  let Icon = AppWindow;
+
+  if (v.includes('desktop') || v.includes('windows') || v.includes('mac') || v.includes('linux') || v.includes('pc') || v.includes('ubuntu')) {
+    Icon = Monitor;
+  } else if (v.includes('mobile') || v.includes('android') || v.includes('ios') || v.includes('phone') || v.includes('iphone')) {
+    Icon = Smartphone;
+  } else if (v.includes('tablet') || v.includes('ipad')) {
+    Icon = Tablet;
+  } else if (v.includes('chrome') || v.includes('safari') || v.includes('firefox') || v.includes('edge') || v.includes('opera') || v.includes('brave') || v.includes('browser') || v.includes('webkit') || v.includes('mozilla') || v.includes('internet explorer')) {
+    Icon = Globe;
+  } else if (v.includes('tv') || v.includes('cast')) {
+    Icon = Airplay;
+  }
+
   return (
     <g transform={`translate(${x + 8}, ${y + height / 2 - 8})`}>
-      {image && <image href={image} width={16} height={16} />}
-      <text x={image ? 20 : 0} y={12} fontSize={12} fill="#ffffff">
+      <Icon size={16} color="#ffffff" />
+      <text x={24} y={12} fontSize={12} fill="#ffffff">
         {value}
       </text>
     </g>

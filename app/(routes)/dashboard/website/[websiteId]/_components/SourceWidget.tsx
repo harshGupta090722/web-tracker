@@ -29,11 +29,23 @@ function SourceWidget({ websiteAnalytics, loading }: Props) {
 
     const BarLabelWithImage = (props: any) => {
         const { x, y, width, height, value } = props;
-        const imageUrl = IMAGE_URL_FOR_DOMAINS?.replace("<domain>", value);
+        const isLocalhost = value === 'localhost' || value === '127';
+        const imageUrl = !isLocalhost ? IMAGE_URL_FOR_DOMAINS?.replace("<domain>", value) : null;
         return (
             <g transform={`translate(${x + 8}, ${y + height / 2 - 8})`}>
-                <image href={imageUrl} width={16} height={16} />
-                <text x={20} y={12} fontSize={12} fill="#ffffff">
+                {imageUrl && <image href={imageUrl} width={16} height={16} />}
+                <text x={imageUrl ? 24 : 0} y={12} fontSize={12} fill="#ffffff">
+                    {value}
+                </text>
+            </g>
+        );
+    };
+
+    const BarLabelNoImage = (props: any) => {
+        const { x, y, width, height, value } = props;
+        return (
+            <g transform={`translate(${x + 8}, ${y + height / 2 - 8})`}>
+                <text x={0} y={12} fontSize={12} fill="#ffffff">
                     {value}
                 </text>
             </g>
@@ -138,7 +150,7 @@ function SourceWidget({ websiteAnalytics, loading }: Props) {
                                             opacity={0.7}
                                             radius={4}
                                             fontSize={12}
-                                            content={<BarLabelWithImage />}
+                                            content={<BarLabelNoImage />}
                                         />
                                     </Bar>
                                 </BarChart>

@@ -137,7 +137,6 @@ export async function GET(req: NextRequest) {
         Object.entries(map).map(([name, uv]) => ({
             name,
             uv,
-            image: `/${name.toLowerCase()}.png`,
         }));
 
     const formatCountries = (
@@ -147,9 +146,7 @@ export async function GET(req: NextRequest) {
         Object.entries(map).map(([name, uv]) => ({
             name,
             uv,
-            image: codeMap[name]
-                ? `https://flagsapi.com/${codeMap[name]}/flat/64.png`
-                : "/country.png",
+            ...(codeMap[name] && { image: `https://flagsapi.com/${codeMap[name]}/flat/64.png` })
         }));
 
     const formatCities = (
@@ -159,9 +156,7 @@ export async function GET(req: NextRequest) {
         Object.entries(map).map(([name, uv]) => ({
             name,
             uv,
-            image: codeMap[name]
-                ? `https://flagsapi.com/${codeMap[name]}/flat/64.png`
-                : "/city.png",
+            ...(codeMap[name] && { image: `https://flagsapi.com/${codeMap[name]}/flat/64.png` })
         }));
 
     const formatRegions = (
@@ -171,9 +166,7 @@ export async function GET(req: NextRequest) {
         Object.entries(map).map(([name, uv]) => ({
             name,
             uv,
-            image: codeMap[name]
-                ? `https://flagsapi.com/${codeMap[name]}/flat/64.png`
-                : "/region.png",
+            ...(codeMap[name] && { image: `https://flagsapi.com/${codeMap[name]}/flat/64.png` })
         }));
 
     const getDomainName = (value: string) => {
