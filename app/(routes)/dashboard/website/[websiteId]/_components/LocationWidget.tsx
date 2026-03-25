@@ -27,12 +27,12 @@ const chartConfig = {
 
 
 const BarLabelWithImage = (props: any) => {
-  const { x, y, width, height, value } = props;
-  const imageUrl = IMAGE_URL_FOR_DOMAINS?.replace("<domain>", value);
+  const { x, y, width, height, value, index, data } = props;
+  const imageUrl = data?.[index]?.image;
   return (
     <g transform={`translate(${x + 8}, ${y + height / 2 - 8})`}>
-      <image href={imageUrl} width={16} height={16} />
-      <text x={20} y={12} fontSize={12} fill="#ffffff">
+      {imageUrl && <image href={imageUrl} width={16} height={16} />}
+      <text x={imageUrl ? 24 : 0} y={12} fontSize={12} fill="#ffffff">
         {value}
       </text>
     </g>
@@ -44,11 +44,11 @@ function LocationWidget({ websiteAnalytics, loading }: Props) {
     <Card>
       <CardContent className='p-5'>
         <Tabs defaultValue="regions" className="w-full">
+
           <TabsList>
             <TabsTrigger value="regions">Regions</TabsTrigger>
             <TabsTrigger value="countries">Countries</TabsTrigger>
             <TabsTrigger value="cities">Cities</TabsTrigger>
-
           </TabsList>
 
           <TabsContent value="regions">
@@ -91,58 +91,60 @@ function LocationWidget({ websiteAnalytics, loading }: Props) {
                     opacity={0.7}
                     className="fill-(--color-label)"
                     fontSize={12}
-                    content={<BarLabelWithImage />}
+                    content={(props: any) => <BarLabelWithImage {...props} data={websiteAnalytics?.regions} />}
                   />
                 </Bar>
               </BarChart>
             </ChartContainer>
           </TabsContent>
 
-          <TabsContent value="countries">            <ChartContainer config={chartConfig}>
-            <BarChart
-              accessibilityLayer
-              data={websiteAnalytics?.countries}
-              layout="vertical"
-              margin={{
-                right: 16,
-              }}
-            >
-              <CartesianGrid horizontal={false} />
-              <YAxis
-                dataKey="name"
-                type="category"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
-                hide
-              />
-
-              <XAxis dataKey="uv" type="number" hide />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="line" />}
-              />
-
-              <Bar dataKey="uv"
+          <TabsContent value="countries">
+            <ChartContainer config={chartConfig}>
+              <BarChart
+                accessibilityLayer
+                data={websiteAnalytics?.countries}
                 layout="vertical"
-                fill="var(--color-primary)"
-                radius={4}
+                margin={{
+                  right: 16,
+                }}
               >
-
-                <LabelList
+                <CartesianGrid horizontal={false} />
+                <YAxis
                   dataKey="name"
-                  position="insideLeft"
-                  offset={8}
-                  opacity={0.7}
-                  className="fill-(--color-label)"
-                  fontSize={12}
-                  content={<BarLabelWithImage />}
+                  type="category"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                  hide
                 />
-              </Bar>
-            </BarChart>
-          </ChartContainer>
+
+                <XAxis dataKey="uv" type="number" hide />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="line" />}
+                />
+
+                <Bar dataKey="uv"
+                  layout="vertical"
+                  fill="var(--color-primary)"
+                  radius={4}
+                >
+
+                  <LabelList
+                    dataKey="name"
+                    position="insideLeft"
+                    offset={8}
+                    opacity={0.7}
+                    className="fill-(--color-label)"
+                    fontSize={12}
+                    content={(props: any) => <BarLabelWithImage {...props} data={websiteAnalytics?.countries} />}
+                  />
+                </Bar>
+              </BarChart>
+            </ChartContainer>
           </TabsContent>
+
           <TabsContent value="cities">
             <ChartContainer config={chartConfig}>
               <BarChart
@@ -183,12 +185,13 @@ function LocationWidget({ websiteAnalytics, loading }: Props) {
                     opacity={0.7}
                     className="fill-(--color-label)"
                     fontSize={12}
-                    content={<BarLabelWithImage />}
+                    content={(props: any) => <BarLabelWithImage {...props} data={websiteAnalytics?.cities} />}
                   />
                 </Bar>
               </BarChart>
             </ChartContainer>
           </TabsContent>
+
         </Tabs>
       </CardContent>
     </Card>

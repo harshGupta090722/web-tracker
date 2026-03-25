@@ -13,7 +13,8 @@ export async function POST(req: NextRequest) {
   const deviceInfo = parser.getDevice()?.model;
   const osInfo = parser.getOS()?.name;
   const browserInfo = parser.getBrowser()?.name;
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || req.ip || req.headers.get('x-real-ip') || '71.71.22.54';
+
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || '71.71.22.54';
 
   const geoRes = await fetch(`http://ip-api.com/json/71.71.22.54`);
   const geoInfo = await geoRes.json();
