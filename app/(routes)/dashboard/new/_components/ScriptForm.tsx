@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +11,10 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Check, Copy } from "lucide-react";
+import { Copy } from "lucide-react";
+import { toast } from "sonner";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface ScriptFormProps {
     websiteId: string;
@@ -20,19 +23,18 @@ interface ScriptFormProps {
 
 export default function ScriptForm({ websiteId, domain }: ScriptFormProps) {
     const router = useRouter();
-    const [copied, setCopied] = useState(false);
 
-    const script = `<script
+
+    const Script = `<script
   defer
   data-website-id="${websiteId}"
   data-domain="${domain}"
   src="${domain}/analytics.js">
 </script>`;
 
-    const handleCopy = async () => {
-        await navigator.clipboard.writeText(script);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+    const onCopy = () => {
+        navigator.clipboard.writeText(Script);
+        toast.success("Script copied to clipboard");
     };
 
     const handleDone = () => {
@@ -58,34 +60,28 @@ export default function ScriptForm({ websiteId, domain }: ScriptFormProps) {
                         <Button
                             size="icon"
                             variant="ghost"
-                            onClick={handleCopy}
-                            className="absolute top-2 right-2 text-zinc-400 hover:text-white"
+                            onClick={onCopy}
+                            className="absolute top-2 right-2 z-10 text-zinc-400 hover:text-white"
                         >
-                            {copied ? <Check size={16} /> : <Copy size={16} />}
+                            <Copy size={16} />
                         </Button>
 
-                        <pre className="rounded-lg bg-zinc-900 p-4 text-sm overflow-x-auto">
-                            <code className="text-zinc-100">
-                                {"<script\n"}
-                                {"  defer\n"}
-                                {"  data-website-id=\""}
-                                <span className="text-emerald-400">{websiteId}</span>
-                                {"\"\n"}
-                                {"  data-domain=\""}
-                                <span className="text-emerald-400">{domain}</span>
-                                {"\"\n"}
-                                {"  src=\""}
-                                <span className="text-emerald-400">
-                                    {domain}/analytics.js
-                                </span>
-                                {"\">\n"}
-                                {"</script>"}
-                            </code>
-                        </pre>
+                        <SyntaxHighlighter
+                            language="html"
+                            style={vscDarkPlus}
+                            customStyle={{
+                                borderRadius: "0.5rem",
+                                fontSize: "0.875rem",
+                                margin: 0,
+                                paddingRight: "3rem",
+                            }}
+                        >
+                            {Script}
+                        </SyntaxHighlighter>
                     </div>
 
                     <Button className="w-full" onClick={handleDone}>
-                        Ok, I've installed the script
+                        Ok, I&apos;ve installed the script
                     </Button>
                 </CardContent>
             </Card>

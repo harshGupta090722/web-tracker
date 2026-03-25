@@ -28,6 +28,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(result);
 }
 
+export async function DELETE(req: NextRequest) {
+    const { websiteId } = await req.json();
+    const user = await currentUser();
+
+    const result = await db.delete(websitesTable).where(
+        and(eq(websitesTable.websiteId, websiteId), eq(websitesTable.userEmail, user?.primaryEmailAddress?.emailAddress as string))
+    )
+    return NextResponse.json({ message: 'Record Deleted!' })
+}
+
 /* ---------------------------------------------
    SAFE TIMEZONE VALIDATOR (IANA ONLY)
 --------------------------------------------- */
