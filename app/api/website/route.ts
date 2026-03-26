@@ -1,7 +1,7 @@
 import { db } from "@/configs/db";
 import { pageViewTable, websitesTable } from "@/configs/schema";
-import { currentUser } from "@clerk/nextjs/server";
-import { and, desc, eq, gte, lte, sql } from "drizzle-orm";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { and, eq, gte, lte, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { toZonedTime } from "date-fns-tz";
 
@@ -9,12 +9,26 @@ export async function POST(req: NextRequest) {
     const { websiteId, domain, timeZone, enableLocalhostTracking } = await req.json();
     const user = await currentUser();
 
+    const { has } = await auth();
+
+    const hasPremiumAccess = has({ plan: 'monthly' })
+
+    //check if the users is free then allow one website only
+
+    if (!hasPremiumAccess) {
+        const result = await db.select().from(websitesTable)
+            .where(eq(websitesTable?.userEmail, user?.primaryEmailAddress?.emailAddress as string));
+
+        if (result.length > 0)
+            return NextResponse.json({ msg: 'Limit exceeded' });
+    }
+
     const existingDomain = await db.select().from(websitesTable)
         .where(and(eq(websitesTable?.domain, domain),
             eq(websitesTable?.userEmail, user?.primaryEmailAddress?.emailAddress as string)));
 
     if (existingDomain.length > 0) {
-        return NextResponse.json({ message: 'Domain already exists', data: existingDomain[0] }, { status: 209 })
+        return NextResponse.json({ msg: 'Domain already exists', data: existingDomain[0] }, { status: 209 })
     }
 
     const result = await db.insert(websitesTable).values({
