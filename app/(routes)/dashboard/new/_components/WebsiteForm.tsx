@@ -24,6 +24,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import { useRouter } from "next/navigation";
+import { toast } from 'sonner';
 
 function WebsiteForm() {
 
@@ -41,27 +42,44 @@ function WebsiteForm() {
         const websiteId = crypto.randomUUID();
         //console.log("website Id", websiteId);
 
-        const result = await axios.post('/api/website', {
-            websiteId: websiteId,
-            domain: domain,
-            timeZone: timeZone,
-            enableLocalhostTracking: enableLocalhostTracking
-        })
+        try {
+            const result = await axios.post('/api/website', {
+                websiteId: websiteId,
+                domain: domain,
+                timeZone: timeZone,
+                enableLocalhostTracking: enableLocalhostTracking
+            })
 
-        //console.log(result.data);
+            //console.log(result.data);
 
-        if (result.data.data) {
-            //console.log("we have received message+data from api");
-            router.push('/dashboard/new?step=script&websiteId=' + result?.data?.data?.websiteId + '&domain=' + result?.data?.data?.domain);
-        } else if (!result?.data?.message) {
-            //console.log("we have received data from api");
-            router.push('/dashboard/new?step=script&websiteId=' + websiteId + '&domain=' + domain);
-        } else {
-           // console.log("This particular domain doesn't belongs to you !");
-            alert(result?.data?.message);
+            if (result?.data?.msg == "Limit exceeded") {
+                toast.error('Limit Exceeded,Please upgrade your plan');
+                return;
+            }
+
+            if (result?.data?.msg == "Domain already exists") {
+                toast.error('Website already exists');
+                setLoading(false);
+                return;
+            }
+
+            if (result.data.data) {
+                //console.log("we have received message+data from api");
+                router.push('/dashboard/new?step=script&websiteId=' + result?.data?.data?.websiteId + '&domain=' + result?.data?.data?.domain);
+            } else if (!result?.data?.message) {
+                //console.log("we have received data from api");
+                router.push('/dashboard/new?step=script&websiteId=' + websiteId + '&domain=' + domain);
+            } else {
+                // console.log("This particular domain doesn't belongs to you !");
+                alert(result?.data?.message);
+            }
+
+        } catch (error: any) {
+            console.error(error);
+            toast.error("An error occurred while adding the website");
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     }
 
     return (
