@@ -26,11 +26,11 @@ export default function ScriptForm({ websiteId, domain }: ScriptFormProps) {
 
 
     const Script = `<script
-  defer
-  data-website-id="${websiteId}"
-  data-domain="${domain}"
-  src="${domain}/analytics.js">
-</script>`;
+    defer
+    data-website-id="${websiteId}"
+    data-domain="${domain}"
+    src="${domain}/analytics.js">
+    </script>`;
 
     const onCopy = () => {
         navigator.clipboard.writeText(Script);
@@ -44,6 +44,7 @@ export default function ScriptForm({ websiteId, domain }: ScriptFormProps) {
     return (
         <div className="flex justify-center mt-10">
             <Card className="max-w-xl w-full">
+
                 <CardHeader>
                     <CardTitle>Install the WebTrack Script</CardTitle>
                     <CardDescription>

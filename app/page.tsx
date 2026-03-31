@@ -14,6 +14,7 @@ export default function Home() {
 
   return (
     <div>
+
       <header className="flex  flex-wrap sm:justify-start  sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-neutral-800 dark:border-neutral-700">
         <nav
           className="relative  p-4 max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
@@ -31,6 +32,7 @@ export default function Home() {
               <h2 className="font-medium text-2xl">WebTrack</h2>
             </div>
           </div>
+
           <div
             id="navbar-collapse-with-animation"
             className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block"
@@ -60,9 +62,11 @@ export default function Home() {
                 <UserButton />
               )}
             </div>
+
           </div>
         </nav>
       </header>
+
       <div className="relative overflow-hidden before:absolute before:top-0 before:start-1/2 before:bg-[url('https://preline.co/assets/svg/examples/polygon-bg-element.svg')] dark:before:bg-[url('https://preline.co/assets/svg/examples-dark/polygon-bg-element.svg')] before:bg-no-repeat before:bg-top before:bg-cover before:size-full before:-z-[1] before:transform before:-translate-x-1/2">
         <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
           <div className="mt-5 max-w-2xl text-center mx-auto">
@@ -111,6 +115,7 @@ export default function Home() {
 
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 items-center gap-2">
+
           <a
             className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800"
             href="#"
@@ -133,6 +138,7 @@ export default function Home() {
                 <path d="M8 18h.01" />
               </svg>
             </div>
+
             <div className="mt-5">
               <h3 className="group-hover:text-gray-600 text-lg font-semibold text-gray-800 dark:text-white dark:group-hover:text-gray-400">
                 25+ templates
@@ -305,8 +311,10 @@ export default function Home() {
               </span>
             </div>
           </a>
+
         </div>
       </div>
+
     </div>
   );
 }
