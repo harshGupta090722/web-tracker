@@ -81,6 +81,7 @@ function WebsiteSettings() {
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="other">Other</TabsTrigger>
         </TabsList>
+
         <TabsContent value="general">
           <Card>
             <CardHeader>
@@ -123,7 +124,7 @@ function WebsiteSettings() {
             </CardHeader>
             <CardContent>
 
-              <Input placeholder='website.com' value={websiteDomain}
+              <Input placeholder='website.com' value={websiteDomain || ""}
                 onChange={(e) => setWebsiteDomain(e.target.value)}
               />
 
@@ -134,6 +135,7 @@ function WebsiteSettings() {
             </CardContent>
           </Card>
         </TabsContent>
+
         <TabsContent value="other">
           <Card>
             <CardHeader>Danger</CardHeader>
@@ -154,7 +156,7 @@ function WebsiteSettings() {
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>
+                    <AlertDialogAction asChild>
                       <Button className='text-white'
                         onClick={() => onDeleteWebsite()}
                         disabled={loading}
@@ -166,10 +168,11 @@ function WebsiteSettings() {
                 </AlertDialogContent>
               </AlertDialog>
             </CardContent>
-
           </Card>
         </TabsContent>
+
       </Tabs>
+
     </div >
   )
 }

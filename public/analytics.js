@@ -29,14 +29,11 @@
 
     const script = document.currentScript;
 
-
-
     const websiteId = script.getAttribute('data-website-id');
     const domain = script.getAttribute('data-domain');
 
     //Get Entry Time
     const entryTime = Math.floor(Date.now() / 1000);
-
 
     //Get Regerrer
     const referrer = document.referrer || 'Direct';
@@ -103,8 +100,6 @@
         })
         // localStorage.clear();
     }
-
-
 
     window.addEventListener('beforeunload', handleExit);
 

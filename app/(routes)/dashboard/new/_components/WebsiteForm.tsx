@@ -4,12 +4,9 @@ import { Separator } from '@radix-ui/react-separator'
 import {
     InputGroup,
     InputGroupAddon,
-    InputGroupButton,
     InputGroupInput,
-    InputGroupText,
-    InputGroupTextarea,
 } from "@/components/ui/input-group"
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Globe, Loader2Icon, Plus } from 'lucide-react'
 import {
     Select,
@@ -93,19 +90,23 @@ function WebsiteForm() {
                 <CardContent>
                     <form className='' onSubmit={(e) => onFormSubmit(e)}>
                         <label className='text-sm'>Domain</label>
+
                         <InputGroup>
                             <InputGroupInput
                                 type='text'
                                 placeholder="mywebsite.com" required
                                 onChange={(e) => setDomain('https://' + e.target.value)}
                             />
+
                             <InputGroupAddon>
                                 <Globe />
                                 <span> https://</span>
                             </InputGroupAddon>
                         </InputGroup>
+
                         <div className='mt-3'>
                             <label className='text-sm'>Timezone</label>
+                            
                             <Select required onValueChange={(value) => setTimeZone(value)}>
                                 <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Select a timezone" />
@@ -157,9 +158,11 @@ function WebsiteForm() {
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
+
                             <div className='mt-3 flex gap-2 item-center'>
                                 <Checkbox onCheckedChange={(value: boolean) => setEnableLocalhostTracking(value)} /><span>Enable localhost tracking in development</span>
                             </div>
+
                             <Button className='mt-5 w-full' disabled={loading} type='submit'>
                                 {loading ? <Loader2Icon className='animate-spin' /> :
                                     <Plus />}Add a Website</Button>

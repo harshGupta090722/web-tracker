@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
-import { WebsiteInfoType, WebsiteType } from '@/configs/type'
+import { WebsiteInfoType} from '@/configs/type'
 import { Globe } from 'lucide-react'
 import Link from 'next/link'
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
@@ -45,6 +45,7 @@ function WebsiteCard({ websiteInfo }: Props) {
                             </div>
                         </CardTitle>
                     </CardHeader>
+
                     <CardContent>
                         <ChartContainer config={chartConfig} className='max-h-20 w-full'>
                             <AreaChart
@@ -68,6 +69,7 @@ function WebsiteCard({ websiteInfo }: Props) {
                         </ChartContainer>
                         <h2 className='text-sm mt-1'><strong>{websiteInfo?.analytics?.totalVisitors} Visitors</strong></h2>
                     </CardContent>
+                    
                 </Card>
             </div >
         </Link>

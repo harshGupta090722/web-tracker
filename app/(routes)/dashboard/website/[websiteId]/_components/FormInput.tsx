@@ -72,8 +72,8 @@ function FormInput({ websiteList, setFormData, setReloadData }: Props) {
     }, [date, analyticType])
 
     return (
-        <div className="flex items-center gap-5 justify-between">
-            <div className='flex items-center gap-5 '>
+        <div className="flex items-center gap-5">
+            <div className='flex items-center gap-5'>
                 <Select value={websiteId as string || ''} onValueChange={(v) => router.push('/dashboard/website/' + v)}>
                     <SelectTrigger className="w-[240px]">
                         <SelectValue placeholder="Select a website" />

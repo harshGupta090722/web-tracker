@@ -7,8 +7,6 @@ export type WebsiteType = {
     userEmail: string;
 }
 
-
-
 export type WebsiteInfoType = {
     website: WebsiteType,
     analytics: AnalyticsType

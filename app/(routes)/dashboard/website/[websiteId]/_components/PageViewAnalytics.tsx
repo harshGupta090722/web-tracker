@@ -26,7 +26,7 @@ const chartConfig = {
 function PageViewAnalytics({ websiteInfo, loading, analyticType, liveUserCount }: Props) {
     const webAnalytics = websiteInfo?.analytics;
     return (
-        <div className='mt-7 max-w-4xl'>
+        <div className='mt-7 w-full'>
             {!loading ? <Card>
 
                 <CardContent className='flex item-center p-5 gap-10'>

@@ -27,8 +27,6 @@ function WebsiteDetail() {
     GetWebsiteList();
   }, []);
 
-
-
   const GetWebsiteList = async () => {
     const websites = await axios.get('/api/website?websiteOnly=true')
     console.log("Here is you website data ", websites?.data);
@@ -36,7 +34,6 @@ function WebsiteDetail() {
   }
 
   //console.log("WebsiteId:", websiteId);
-
 
   const GetWebsiteAnalyticDetail = async () => {
     setLoading(true);

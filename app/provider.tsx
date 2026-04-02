@@ -12,6 +12,7 @@ function Provider({
 }>) {
 
     const { user } = useUser();
+    
     useEffect(() => {
         user && createNewUser();
     }, [user]);
