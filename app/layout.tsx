@@ -21,12 +21,14 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
     <ClerkProvider>
       <html lang="en">
         <head>
+
           <script
             defer
             data-website-id="256d3e01-99ae-4bc0-a3d7-a9df38708096"
             data-domain="https://localhost:3000"
             src="http://localhost:3000/analytics.js">
           </script>
+
         </head>
 
         <body className={AppFont.className}>
