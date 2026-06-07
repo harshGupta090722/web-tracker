@@ -25,8 +25,8 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
           <script
             defer
             data-website-id="256d3e01-99ae-4bc0-a3d7-a9df38708096"
-            data-domain="https://localhost:3000"
-            src="http://localhost:3000/analytics.js">
+            data-domain="http://13.201.118.219/"
+            src="http://13.201.118.219/analytics.js">
           </script>
 
         </head>

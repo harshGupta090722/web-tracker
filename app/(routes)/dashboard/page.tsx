@@ -1,10 +1,10 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
-import { WebsiteInfoType, WebsiteType } from '@/configs/type';
+import { WebsiteInfoType} from '@/configs/type';
 import WebsiteCard from './_components/WebsiteCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns-tz';
@@ -29,6 +29,7 @@ function Dashboard() {
 
   return (
     <div className='mt-8'>
+
       <div className='flex justify-between items-center'>
         <h2 className='font-bold text-xl'>My Website</h2>
         <Link href={'/dashboard/new'}>
@@ -60,7 +61,7 @@ function Dashboard() {
             <Link href={'/dashboard/new'}>
               <Button>+ website</Button>
             </Link>
-            
+
           </div> :
           <div className='grid grid-cols-1 md:grid-cols-2 gap-5 xl:grid-cols-3 mt-5'>
             {/*Website List*/}
@@ -70,6 +71,7 @@ function Dashboard() {
           </div>
         }
       </div>
+
     </div>
   )
 }

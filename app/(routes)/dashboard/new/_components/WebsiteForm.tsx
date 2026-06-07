@@ -106,7 +106,7 @@ function WebsiteForm() {
 
                         <div className='mt-3'>
                             <label className='text-sm'>Timezone</label>
-                            
+
                             <Select required onValueChange={(value) => setTimeZone(value)}>
                                 <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Select a timezone" />

@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { SignIn, SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
-import React from 'react'
-import { DollarSign, DollarSignIcon } from "lucide-react";
+import { DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -18,7 +17,7 @@ function AppHeader() {
                     <h2 className="font-medium text-2xl">WebTrack</h2>
                 </div>
             </div>
-            
+
             <div
                 id="navbar-collapse-with-animation"
                 className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">

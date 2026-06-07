@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect } from "react";
 
-import { SignIn, SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { wakeDb } from "@/lib/wake-db";
 
 export default function Home() {

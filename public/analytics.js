@@ -61,7 +61,7 @@
         RefParams
     }
 
-    fetch('http://localhost:3000/api/track', {
+    fetch('http://13.201.118.219//api/track', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -82,7 +82,7 @@
         const exitTime = Math.floor(Date.now() / 1000);
         totalActiveTime += Math.floor((Date.now() - activeStartTime) / 1000);
 
-        fetch('http://localhost:3000/api/track', {
+        fetch('http://13.201.118.219/api/track', {
             method: 'POST',
             keepalive: true,
             headers: {
@@ -104,7 +104,7 @@
     window.addEventListener('beforeunload', handleExit);
 
     const sendLivePing = () => {
-        fetch('http://localhost:3000/api/live', {
+        fetch('http://13.201.118.219//api/live', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

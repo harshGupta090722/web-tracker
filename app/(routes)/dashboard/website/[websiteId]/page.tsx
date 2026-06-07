@@ -44,8 +44,8 @@ function WebsiteDetail() {
     const websiteResult = await axios.get(`/api/website?websiteId=${websiteId}&from=${fromDate}&to=${toDate}`);
     console.log("WebisteResult", websiteResult);
     setWebsiteInfo(websiteResult?.data[0]);
-    setLoading(false);
     GetLiveUsers();
+    setLoading(false);
   }
 
   const GetLiveUsers = async () => {
@@ -65,6 +65,7 @@ function WebsiteDetail() {
   return (
     <div className="mt-10">
       <FormInput websiteList={websiteList} setFormData={setFormData} setReloadData={() => GetWebsiteAnalyticDetail()} />
+        
       <PageViewAnalytics
         websiteInfo={websiteInfo}
         loading={loading}

@@ -12,6 +12,7 @@ export default clerkMiddleware(async (auth, req) => {
     }
 })
 
+//This tells Next.js exactly which routes should trigger the middleware.
 export const config = {
     matcher: [
         // Skip Next.js internals and all static files, unless found in search params

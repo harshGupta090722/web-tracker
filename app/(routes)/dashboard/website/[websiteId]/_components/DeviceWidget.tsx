@@ -57,6 +57,7 @@ function DeviceWidget({ websiteAnalytics, loading }: Props) {
     <Card>
       <CardContent className='p-5'>
         <Tabs defaultValue="devices" className="w-full">
+
           <TabsList>
             <TabsTrigger value="devices">Devices</TabsTrigger>
             <TabsTrigger value="os">OS</TabsTrigger>
@@ -119,6 +120,7 @@ function DeviceWidget({ websiteAnalytics, loading }: Props) {
               </BarChart>
             </ChartContainer>
           </TabsContent>
+
         </Tabs>
       </CardContent>
     </Card>

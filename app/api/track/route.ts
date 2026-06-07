@@ -23,14 +23,14 @@ export async function OPTIONS(req: Request) {
 }
 
 export async function POST(req: NextRequest) {
-    const rawBody = await req.json();
-    const body = rawBody.data ?? rawBody;
+  const rawBody = await req.json();
+  const body = rawBody.data ?? rawBody;
 
   //fetch all required data from Analytics.js
-    const parser = new UAParser(req.headers.get('user-agent') || '');
-    const deviceInfo = parser.getDevice()?.model;
-    const osInfo = parser.getOS()?.name;
-    const browserInfo = parser.getBrowser()?.name;
+  const parser = new UAParser(req.headers.get('user-agent') || '');
+  const deviceInfo = parser.getDevice()?.model;
+  const osInfo = parser.getOS()?.name;
+  const browserInfo = parser.getBrowser()?.name;
 
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || '71.71.22.54';
 
@@ -49,50 +49,50 @@ export async function POST(req: NextRequest) {
   //Insert to DB
   console.log("FINAL websiteId:", body.websiteId);
 
-    let result;
+  let result;
 
-    let safeTotalActiveTime = Number(body.totalActiveTime) || 0;
-    if (safeTotalActiveTime < 0 || safeTotalActiveTime > 2147483647) {
-      safeTotalActiveTime = 0;
-    }
+  let safeTotalActiveTime = Number(body.totalActiveTime) || 0;
+  if (safeTotalActiveTime < 0 || safeTotalActiveTime > 2147483647) {
+    safeTotalActiveTime = 0;
+  }
 
-    if (body.type == 'entry') {
-      result = await db.insert(pageViewTable).values({
-        visitorId: body.visitorId,
-        websiteId: body.websiteId,
-        url: body.url,
-        domain: body.domain,
-        type: body.type,
-        referrer: body.referrer,
-        entryTime: body.entryTime,
-        exitTime: body.exitTime,
-        totalActiveTime: safeTotalActiveTime,
-        urlParams: body.urlParams,
-        utm_source: body.utm_source,
-        utm_medium: body.utm_medium,
-        utm_campaign: body.utm_campaign,
-        device: deviceInfo,
-        os: osInfo,
-        browser: browserInfo,
-        city: geoInfo.city,
-        region: geoInfo.regionName,
-        country: geoInfo.country,
-        countryCode: geoInfo.countryCode,
-        ipAddress: ip || '',
-        refParams: body.refParams,
-      }).returning();
-    } else {
-      result = await db.update(pageViewTable).set({
-        exitTime: body.exitTime,
-        totalActiveTime: safeTotalActiveTime,
-        exitUrl: body.exitUrl,
-      }).where(eq(pageViewTable.visitorId, body.visitorId)).returning();
-    }
+  if (body.type == 'entry') {
+    result = await db.insert(pageViewTable).values({
+      visitorId: body.visitorId,
+      websiteId: body.websiteId,
+      url: body.url,
+      domain: body.domain,
+      type: body.type,
+      referrer: body.referrer,
+      entryTime: body.entryTime,
+      exitTime: body.exitTime,
+      totalActiveTime: safeTotalActiveTime,
+      urlParams: body.urlParams,
+      utm_source: body.utm_source,
+      utm_medium: body.utm_medium,
+      utm_campaign: body.utm_campaign,
+      device: deviceInfo,
+      os: osInfo,
+      browser: browserInfo,
+      city: geoInfo.city,
+      region: geoInfo.regionName,
+      country: geoInfo.country,
+      countryCode: geoInfo.countryCode,
+      ipAddress: ip || '',
+      refParams: body.refParams,
+    }).returning();
+  } else {
+    result = await db.update(pageViewTable).set({
+      exitTime: body.exitTime,
+      totalActiveTime: safeTotalActiveTime,
+      exitUrl: body.exitUrl,
+    }).where(eq(pageViewTable.visitorId, body.visitorId)).returning();
+  }
 
- // console.log("Insert data:", result);
+  // console.log("Insert data:", result);
 
-    return NextResponse.json(
-      { message: "Data received successfully", data: result },
-      { headers: CORS_HEADERS }
+  return NextResponse.json(
+    { message: "Data received successfully", data: result },
+    { headers: CORS_HEADERS }
   )
 }

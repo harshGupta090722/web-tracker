@@ -25,8 +25,6 @@ const chartConfig = {
 
 function SourceWidget({ websiteAnalytics, loading }: Props) {
 
-
-
     const BarLabelWithImage = (props: any) => {
         const { x, y, width, height, value } = props;
         const isLocalhost = value === 'localhost' || value === '127';

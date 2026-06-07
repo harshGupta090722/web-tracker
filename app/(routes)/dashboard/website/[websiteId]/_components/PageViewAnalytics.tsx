@@ -25,6 +25,7 @@ const chartConfig = {
 
 function PageViewAnalytics({ websiteInfo, loading, analyticType, liveUserCount }: Props) {
     const webAnalytics = websiteInfo?.analytics;
+    
     return (
         <div className='mt-7 w-full'>
             {!loading ? <Card>
